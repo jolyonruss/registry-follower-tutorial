@@ -174,7 +174,7 @@ this, we'll add `include_docs: true` to the options object we pass to the
 `ChangesStream` constructor.
 
 Once we've told our ChangesStream to `include_docs`, we get some new
-awesome data.  This new data lives off of a key called `doc` on the `change`
+awesome data. This new data lives off of a key called `doc` on the `change`
 object we received from the stream.
 
 The two changes we make to our code look like this:
@@ -298,7 +298,7 @@ code.
 
 Let's walk through what this code is doing:
 
-- On line 2, we are require the `request` package
+- On line 2, we require the `request` package
 - On line 10, we are making a request to our db using the `request` package
 - On line 11, we parse the response from our request and grab the `update_seq`
   value.
@@ -306,9 +306,9 @@ Let's walk through what this code is doing:
   value we get is greater than or equal to `update_seq`. Why `>=` and
   not just equal? Remember that the registry is *always* changing, and there's
   a good chance it will change while we are following it! Using `>=` means that
-  we can account for the change that happens while our application is running. 
+  we can account for changes that happen while our application is running. 
 - On line 15, we end our program. We send the value `0` to `process.exit` to
-  indicate thaat we are ending the program successfully, i.e. not with an error.
+  indicate that we are ending the program successfully, i.e. not with an error.
 
 Ok! Given this code, our application will now run for all the current changes in the
 registry and then exit. Take a moment and give it a go! Note: There are a lot of
@@ -316,7 +316,7 @@ changes, so this can take up to an hour.
 
 ## clean up
 
-So our follower is pretty much done! However, there's a few things that are quite
+So our follower is pretty much done! However, there's a few things that aren't quite
 right about our data. Let's do that now so we can finish up.
 
 Firstly, remember the `id`/`_id` key we recieve from our changes stream? We had
@@ -328,7 +328,7 @@ and "design docs".
 a bit. One way to program with CouchDB is to write an application **within** the db.
 At this point, npm is moving away from this structure, but at one point (and still!)
 the registry was/is written as a CouchDB application. These applications exist as 
-"design docs" inside the db, so when receive data from the db, *sometimes* we receive
+"design docs" inside the db, so when we receive data from the db, *sometimes* we receive
 these design docs. If you watched your follower closely, you'd notice that 
 *sometimes* it's logging `undefined`. Those are the "design docs".
 
@@ -346,7 +346,7 @@ code, this looks like this:
 
 Ok, so we're **almost** done. Actually, we are totally done. But there's one last
 thing we can do to make our data even better: we can normalize our data so that
-it is nearly exactly the same as the CLI uses and is returned by http://registry.npmjs.com.
+it is nearly exactly the same as what the CLI uses and is returned by http://registry.npmjs.com.
 
 To do this, we'll add *one more* dependency to our application: [`normalize-registry-metadata`].
 
